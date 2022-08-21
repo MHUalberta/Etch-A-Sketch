@@ -3,6 +3,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: #212121;
 }
 
 #container {
@@ -10,4 +11,5 @@ body {
     flex-wrap: wrap;
     height: 600px;
     width: 600px;
+    border: solid black 2px;
 }

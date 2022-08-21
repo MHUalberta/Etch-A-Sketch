@@ -9,7 +9,12 @@
     <link rel="stylesheet" href="./stylesheet.css">
 </head>
 <body>
-    <button id="dimensions">Change Board Dimensions</button>
+    <div id="inputs-container">
+        <input type="range" min="1" max="100" value="16" id="dims-slider">
+        <input type="color" value='#FAF501' id="color-picker">
+        <input type="button" id="clear" value="Clear">
+        <input type="button" id="rainbow" value="Rainbow Mode">
+    </div>
     <div id="container"></div>
 </body>
 </html>
