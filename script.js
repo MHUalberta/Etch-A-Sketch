@@ -13,7 +13,15 @@ function updatePixelColor() {
         this.style.backgroundColor = generateRandomColor();
     }
     else {
+        this.style.filter = '';
         this.style.backgroundColor = selectedColor;
+    }
+
+    if (oscillateMode) {
+        this.style.filter = `brightness(${currentBrightness}%)`;
+        currentBrightness -= oscillateBy;
+        if (currentBrightness <= 0 || currentBrightness >= 100)
+            oscillateBy = -oscillateBy;
     }
 }
 
@@ -23,11 +31,18 @@ function addPixelListeners(pixel) {
 
 function clearBoard() {
     pixels = document.querySelectorAll(".pixel");
-    pixels.forEach(pixel => pixel.style.backgroundColor = defaultColor);
+    pixels.forEach(pixel => {
+        pixel.style.backgroundColor = defaultColor;
+        pixel.style.filter = '';
+    });
 }
 
 function toggleRainbowMode() {
     rainbowMode = !rainbowMode;
+}
+
+function toggleOscillateMode() {
+    oscillateMode = !oscillateMode;
 }
 
 function createBoard() {
@@ -38,7 +53,6 @@ function createBoard() {
     for (let i = 0; i < dimensions; i++)
         for (let j = 0; j < dimensions; j++) {
             const pixel = document.createElement("div");
-            pixel.style.backgroundColor = defaultColor;
             pixel.style.cssText = `background-color: ${defaultColor}; height: ${height}%; width: ${height}%; `
             pixel.classList.add('pixel');
             addPixelListeners(pixel);
@@ -58,11 +72,20 @@ function addInputListeners () {
 
     const rainbowButton = document.getElementById("rainbow");
     rainbowButton.addEventListener("click", toggleRainbowMode);
+
+    const oscillateButton = document.getElementById("oscillate");
+    oscillateButton.addEventListener("click", toggleOscillateMode);
 }
 
 const defaultColor = "white";
 let selectedColor = document.getElementById("color-picker").value;
+
 let rainbowMode = false;
+
+let oscillateMode = false;
+let currentBrightness = 100;
+let oscillateBy = 3;    //How much the brightness of the color will decrease by
+
 createBoard();
 addInputListeners();
 
